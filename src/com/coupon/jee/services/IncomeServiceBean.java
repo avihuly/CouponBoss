@@ -15,8 +15,7 @@ public class IncomeServiceBean implements IncomeService {
 	EntityManager incomeManager;
 
 	// cunstractor
-	public IncomeServiceBean() {
-	}
+	public IncomeServiceBean() {}
 
 	@Override
 	public void storeIncome(Income income) {
