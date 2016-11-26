@@ -1,0 +1,25 @@
+<div class="row">
+	<div class="col-sm-6 col-md-4"
+		ng-repeat="coupon in couponsToBrowse | filter:searchText">
+		<div class="thumbnail">
+			<h3>{{coupon.title}}</h3>
+			<div>
+				<img ng-src={{coupon.image}} alt={{coupon.title}}
+					class="img-responsive" height="{{ couponPicSize.height }}"
+					width="{{ couponPicSize.width }}" uib-tooltip={{"Description:"+coupon.message}}>
+
+				<span class="label label-info info" id="topInfo"> <span
+					uib-tooltip="Start date"> {{coupon.startDate}} <b
+						class="glyphicon glyphicon-chevron-left"></b>
+				</span> &nbsp; &nbsp; &nbsp; <span uib-tooltip="End date">
+						{{coupon.endDate}} <b class="glyphicon glyphicon-stop"></b>
+				</span>
+				</span> <img /> <label class="form-control"> Price:
+					{{coupon.price}} </label>
+				<button class="form-control btn-success"
+					ng-click="buyCoupon(coupon.id)">Get coupon</button>
+			</div>
+		</div>
+		<br />
+	</div>
+</div>

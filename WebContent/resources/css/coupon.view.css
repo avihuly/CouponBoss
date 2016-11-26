@@ -1,0 +1,46 @@
+.thumbnail {
+	position: relative;
+	padding: 0px;
+	margin-bottom: 20px;
+}
+
+.thumbnail>h3 {
+	padding: 7px 5px 0px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#topInfo {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	font-size: 10px;
+	padding-left: 15px;
+	border-top-right-radius: 3px;
+	border-bottom-left-radius: 4px;
+	border-radius: 0px;
+	border-bottom-left-radius: 5px;
+	cursor: pointer;
+}
+
+#bottomInfo {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	font-size: 10px;
+	padding-left: 15px;
+	border-top-right-radius: 3px;
+	border-bottom-left-radius: 4px;
+	border-radius: 0px;
+	border-bottom-left-radius: 5px;
+	cursor: pointer;
+}
+
+.thumbnail h3 .info>span {
+	margin-right: 10px;
+}
+
+.thumbnail img {
+	width: 100%;
+}

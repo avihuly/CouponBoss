@@ -1,0 +1,26 @@
+package com.coupon.core.exception;
+
+public class CompanyFacadeException extends RuntimeException{
+	
+	public CompanyFacadeException() {
+		super();
+
+	}
+
+	public CompanyFacadeException(String message, Throwable cause) {
+		super(message, cause);
+
+	}
+
+	public CompanyFacadeException(String message) {
+		super(message);
+
+	}
+
+	public CompanyFacadeException(Throwable cause) {
+		super(cause);
+
+	}
+
+
+}

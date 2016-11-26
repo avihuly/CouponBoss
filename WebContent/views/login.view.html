@@ -1,0 +1,53 @@
+<div class="container">
+	<h1>Coupon Web</h1>
+	<h3>Welcome to our magnificent coupon web app!</h3>
+	<br />
+	<form>
+		<table>
+			<tr>
+				<td>
+					<div class="input-group">
+						<span class="input-group-addon" id="userAddon"> <span
+							class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						</span> <input type="text" name="name" class="form-control"
+							ng-model="name" placeholder="username"
+							aria-describedby="userAddon" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="input-group">
+						<span class="input-group-addon" id="passwordAddon"> <span
+							class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+						</span> <input type="password" name="password" class="form-control"
+							ng-model="password" placeholder="password"
+							aria-describedby="passwordAddon" />
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<br />
+		<br />
+		<div id="clientRadio">
+			<span class="input-group-addon"> <input type="radio"
+				name="clientType" value="Admin" ng-model="clientType"
+				aria-label="Radio button for following text input" /> Admin <input
+				type="radio" name="clientType" value="Company" ng-model="clientType"
+				aria-label="Radio button for following text input" /> Company <input
+				type="radio" name="clientType" value="Customer"
+				ng-model="clientType"
+				aria-label="Radio button for following text input" /> Customer
+			</span>
+		</div>
+		<br />
+		<br />
+		<div class="alert alert-danger" ng-show="loginStatusShow">
+			<p name="loginStatus">{{loginStatus}}</p>
+		</div>
+		<button type="button" class="btn btn-success" ng-click="mySubmit()">
+			Login</button>
+	</form>
+
+</div>

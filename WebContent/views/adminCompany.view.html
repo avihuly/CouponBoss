@@ -1,0 +1,55 @@
+<div>
+	<table class="table table-responsive table-hover table-condensed">
+		<thead>
+			<tr style="font-weight: bold">
+				<th style="width: 30%">Username</th>
+				<th style="width: 30%">Password</th>
+				<th style="width: 40%">Email</th>
+			</tr>
+		</thead>
+		<!--each table row represent a compny-->
+		<tr ng-repeat="company in companies | filter:searchText">
+			<td>
+				<!--company name--> <span editable-text="company.name" e-name="name"
+				e-form="companyform" e-placeholder="company name"
+				onbeforesave="onberofesaveCompanyName($data)">
+					{{company.name}} </span>
+			</td>
+			<td>
+				<!--Password--> <span editable-text="company.password"
+				e-name="password" e-form="companyform" e-placeholder="password"
+				onbeforesave="onberofesavePASSWORD($data)">
+
+					{{company.password}} </span>
+			</td>
+			<td>
+				<!--email--> <span editable-text="company.email" e-name="email"
+				e-form="companyform" e-placeholder="email"> {{company.email}}
+			</span>
+			</td>
+			<td style="white-space: nowrap">
+				<!-- form - edit buttons  -->
+				<form editable-form name="companyform"
+					onbeforesave="addUpdateCompany($data, $index)"
+					ng-show="companyform.$visible" class="form-buttons form-inline">
+					<!--shown="inserted == user">-->
+					<button type="submit" ng-disabled="companyform.$waiting"
+						class="btn btn-primary">save</button>
+					<button type="button" ng-disabled="companyform.$waiting"
+						ng-click="companyform.$cancel()" class="btn btn-default">
+						cancel</button>
+				</form>
+				<div class="buttons" ng-show="!companyform.$visible">
+					<button class="btn btn-info"
+						ng-click="getCompanyCoupons(company.id, $index)">coupons</button>
+					<button id="{{'edit' + $index}}" class="btn btn-primary"
+						ng-click="companyform.$show()">edit</button>
+					<button class="btn btn-danger" ng-click="removeCompany($index)">del</button>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<button class="btn btn-default" ng-click="addRowForCompany()">Add
+		row</button>
+</div>

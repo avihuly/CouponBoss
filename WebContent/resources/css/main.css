@@ -1,0 +1,27 @@
+body {
+	background-color: #e8e8e8;
+	text-align: center;
+}
+
+form {
+	align-self: center;
+}
+
+table, td, tr {
+	margin: 0 auto;
+	text-align: left;
+}
+
+#newCouponView {
+	text-align: left;
+}
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+
+#clientRadio {
+	margin-left: 38%;
+	margin-right: 38%;
+}

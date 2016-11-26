@@ -1,0 +1,49 @@
+<div>
+	<table class="table table-responsive table-hover table-condensed">
+		<thead>
+			<tr style="font-weight: bold">
+				<th style="width: 50%">Username</th>
+				<th style="width: 50%">Password</th>
+			</tr>
+		</thead>
+		<!--each table row represent a compny-->
+		<tr ng-repeat="customer in customers | filter:searchText">
+			<td>
+				<!-- row 10-11 shold be customer?? --> <!--customer name--> <span
+				editable-text="customer.name" e-name="name" e-form="customerform"
+				e-placeholder="Customer name"
+				onbeforesave="onberofesaveCustomerName($data)">
+					{{customer.name}} </span>
+			</td>
+			<td>
+				<!--Password--> <span editable-text="customer.password"
+				e-name="password" e-form="customerform" e-placeholder="Password"
+				onbeforesave="onberofesavePASSWORD($data)">
+
+					{{customer.password}} </span>
+			</td>
+			<td style="white-space: nowrap">
+				<!-- form - edit buttons  -->
+				<form editable-form name="customerform"
+					onbeforesave="addUpdateCustomer($data, $index)"
+					ng-show="customerform.$visible" class="form-buttons form-inline">
+					<!--shown="inserted == user">-->
+					<button type="submit" ng-disabled="customerform.$waiting"
+						class="btn btn-primary">save</button>
+					<button type="button" ng-disabled="customerform.$waiting"
+						ng-click="customerform.$cancel()" class="btn btn-default">
+						cancel</button>
+				</form>
+				<div class="buttons" ng-show="!customerform.$visible">
+					<button class="btn btn-info"
+						ng-click="getCustomerCoupons(customer.id, $index)">coupons</button>
+					<button class="btn btn-primary" ng-click="customerform.$show()">edit</button>
+					<button class="btn btn-danger" ng-click="removeCustomer($index)">del</button>
+				</div>
+			</td>
+		</tr>
+	</table>
+	</br>
+	<button class="btn btn-default" ng-click="addRowForCustomer()">Add
+		row</button>
+</div>

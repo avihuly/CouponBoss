@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>com.coupon.web.services</display-name>
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>com.coupon.web.filters.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/coupon/admin/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>Coupon Web Service</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>com.coupon.web.services</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.provider.classnames</param-name>
+      <param-value>com.coupon.web.exceptions.mappers.IllegalPasswordExceptionRrsponse;
+				com.coupon.web.exceptions.mappers.EmailAlreadyExistsExceptionResponse;
+				com.coupon.web.exceptions.mappers.CompanyAlreadyExistsExceptionResponse;
+				com.coupon.web.exceptions.mappers.AdminFacadeExceptionResponse;
+				com.coupon.web.exceptions.mappers.CouponDoesNotExistExceptionResponse; 
+				com.coupon.web.exceptions.mappers.CompanyDoesNotExistExceptionResponse; 
+				com.coupon.web.exceptions.mappers.CompanyCouponDoesNotExistsExceptionResponse;
+				com.coupon.web.exceptions.mappers.NumberFormatExceptionResponse;
+				com.coupon.web.exceptions.mappers.CustomerAlreadyExistsExceptionResponse;
+				com.coupon.webexceptions.mappers.CustomerDoesNotExistExceptionResponse;
+				com.coupon.web.exceptions.mappers.CustomerFacadeExceptionResponse;
+				com.coupon.web.exceptions.mappers.CouponAlreadyPurchasedExceptionResponse;
+				com.coupon.web.exceptions.mappers.OutOfStockExceptionResponse;
+				com.coupon.web.exceptions.mappers.OutOfDateExceptionResponse;
+				com.coupon.web.exceptions.mappers.CouponTitleAlreadyExistExceptionResponse;
+				com.coupon.web.exceptions.mappers.IllegalArgumentExceptionResponse;
+				
+				com.coupon.web.filters.CORSFIlter;</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Coupon Web Service</servlet-name>
+    <url-pattern>/coupon/*</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>/index.html</welcome-file>
+  </welcome-file-list>
+</web-app>

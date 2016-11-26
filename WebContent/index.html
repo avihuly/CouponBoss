@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CouponWeb</title>
+<link rel="icon" href="resources/img/pageIcon.ico">
+
+<!--vendor.css-->
+<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="vendor/xeditable/xeditable.css">
+
+<!--app.css-->
+<link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="resources/css/coupon.view.css">
+<link rel="stylesheet" href="resources/css/select.css">
+<link rel="stylesheet" href="resources/css/header.css">
+<link rel="stylesheet" href="resources/css/purchasedView.css">
+</head>
+
+<body ng-app="Coupon">
+	<!--The main view of the app-->
+	<ng-view></ng-view>
+
+	<!--vendor.js-->
+	<script src="vendor/angular/angular.js"></script>
+	<script src="vendor/angular/angular-route.min.js"></script>
+	<script src="vendor/xeditable/xeditable.js"></script>
+	<script src="vendor/ui-bootstrap/ui-bootstrap-tpls-2.1.3.js"></script>
+
+	<!--app.js-->
+	<script src="main.js"></script>
+	<!--factory-->
+	<script src="factory/campny.factory.js"></script>
+	<script src="factory/customer.factory.js"></script>
+	<script src="factory/coupon.factory.js"></script>
+	<script src="factory/couponTypes.factory.js"></script>
+	<script src="factory/couponFilter.factory.js"></script>
+	<!--services-->
+	<script src="services/couopnUtil.service.js"></script>
+	<script src="services/proxy/loginProxy.service.js"></script>
+	<script src="services/proxy/companyProxy.service.js"></script>
+	<script src="services/proxy/customerProxy.service.js"></script>
+	<script src="services/proxy/loginProxy.service.js"></script>
+	<script src="services/proxy/companyCouponProxy.service.js"></script>
+	<script src="services/proxy/customerCouponProxy.service.js"></script>
+	<!--controllers-->
+	<script src="controllers/login.controller.js"></script>
+	<script src="controllers/adminhome.controller.js"></script>
+	<script src="controllers/company.controller.js"></script>
+	<script src="controllers/customer.controller.js"></script>
+</body>
+</html>

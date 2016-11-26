@@ -1,0 +1,36 @@
+<div class="container-fluid">
+	<div class="page-header">
+		<h1>
+			Coupon list for <small>{{focusOn.id+", " + focusOn.name}}</small>
+		</h1>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-sm-6 col-md-4"
+			ng-repeat="coupon in focusOn.coupons | filter:searchText">
+			<div class="thumbnail">
+				<h3>{{coupon.title}}</h3>
+				<div>
+					<img ng-src={{coupon.image}} alt={{coupon.title}}
+						class="img-responsive" height="{{ couponPicSize.height }}"
+						width="{{ couponPicSize.width }}" uib-tooltip={{"Description:"+coupon.message}}>
+
+					<span class="label label-info info" id="topInfo"> <span
+						uib-tooltip="Start date"> {{coupon.startDate}} <b
+							class="glyphicon glyphicon-chevron-left"></b>
+					</span> &nbsp; &nbsp; &nbsp; <span uib-tooltip="End date">
+							{{coupon.endDate}} <b class="glyphicon glyphicon-stop"></b>
+					</span>
+					</span> <span class="label label-danger info" id="bottomInfo"> <span
+						uib-tooltip="Amount"> {{coupon.amount}} <b
+							class="glyphicon glyphicon-scissors"></b>
+					</span> &nbsp; &nbsp; &nbsp; <span uib-tooltip="Price">
+							{{coupon.price}} <b class="glyphicon glyphicon-euro"></b>
+					</span>
+					</span> <img />
+				</div>
+			</div>
+			<br />
+		</div>
+	</div>
+</div>

@@ -1,0 +1,57 @@
+<div>
+	<!--Filters-->
+	<div class="row">
+		<!--Filter By Type-->
+		<div class="col-md-4">
+			<div class="input-group">
+				<span class="input-group-addon" id="type-addon">Type:</span>
+				<div class="col-md-6 select-style">
+					<select class="form-control" aria-describedby="type-addon"
+						id="typeSelect" ng-model="couponFilter.typeOnfocus"
+						ng-options="type for type in couponFilter.couponTypes"
+						ng-change="purchasedByType()">
+					</select>
+				</div>
+			</div>
+		</div>
+		<!--Filter By Price-->
+		<div class="col-md-4">
+			<div class="input-group">
+				<span class="input-group-addon" id="Price-addon">Up to price:
+				</span> <input type="number" min="1" ng-model="couponFilter.price"
+					placeholder="Price" class="form-control"
+					aria-describedby="Price-addon" /> <span class="input-group-btn">
+					<button class="btn btn-secondary" type="button"
+						ng-click="purchasedByPrice()">Go!</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<h2>{{couponFilter.message}}</h2>
+	</div>
+
+	<!--Coupons-->
+	<div class="row">
+		<div class="col-sm-6 col-md-4"
+			ng-repeat="coupon in purchasedCoupons | filter:searchText">
+			<div class="thumbnail">
+				<h3>{{coupon.title}}</h3>
+				<div>
+					<img ng-src={{coupon.image}} alt={{coupon.title}}
+						class="img-responsive" height="{{ couponPicSize.height }}"
+						width="{{ couponPicSize.width }}" uib-tooltip={{"Description:"+coupon.message}}>
+					<span class="label label-info info" id="topInfo"> <span
+						uib-tooltip="Start date"> {{coupon.startDate}} <b
+							class="glyphicon glyphicon-chevron-left"></b>
+					</span> &nbsp; &nbsp; &nbsp; <span uib-tooltip="End date">
+							{{coupon.endDate}} <b class="glyphicon glyphicon-stop"></b>
+					</span>
+					</span> <img /> <label class="form-control"> Price:
+						{{coupon.price}} </label>
+				</div>
+			</div>
+			<br />
+		</div>
+	</div>
+</div>
