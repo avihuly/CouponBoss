@@ -201,7 +201,11 @@ public class CustomerFacade {
 					+ "getAllPurchasedCouponsByType() Error: " + e.getMessage(), e);
 		}
 	}
-
+		
+	public Customer getCustomer(){
+		return customer;
+	}
+	
 	// toString
 	@Override
 	public String toString() {

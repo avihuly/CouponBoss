@@ -1,5 +1,7 @@
 package com.coupon.web.services;
 
+import java.time.LocalDate;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,6 +14,9 @@ import javax.ws.rs.core.MediaType;
 import com.coupon.core.beans.Coupon;
 import com.coupon.core.constants.CouponType;
 import com.coupon.core.facade.CustomerFacade;
+import com.coupon.jee.delegates.BusinessDelegate;
+import com.coupon.jee.entities.Income;
+import com.coupon.jee.entities.IncomeType;
 
 @Path("/customer")
 public class CustomerServlet {
@@ -30,7 +35,18 @@ public class CustomerServlet {
 		// getting the customerFacade saved in the session
 		CustomerFacade custFacade = (CustomerFacade) request.getSession().getAttribute(Facade_Attr);
 		// The purchaseCoupon function
-		return custFacade.purchaseCoupon(id);
+		Coupon purchasedCoupon = custFacade.purchaseCoupon(id);
+		// creating Income object to store 
+		Income income = new Income(
+				custFacade.getCustomer().getCustName(),
+				LocalDate.now(),
+				IncomeType.CUSTOMER_PURCHASE,
+				purchasedCoupon.getPrice()
+				);
+		// Sending Income to be asynchronously stored in the DB by the 
+		BusinessDelegate.getInctance().storeIncome(income);
+		// return purchased coupon
+		return purchasedCoupon;
 	}
 	
 	// getAllPurchasedCoupons()
