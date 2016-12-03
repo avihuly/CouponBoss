@@ -2,6 +2,7 @@ package com.coupon.jee.services;
 
 import java.util.Collection;
 import javax.ejb.Remote;
+
 import com.coupon.jee.entities.Income;
 
 @Remote

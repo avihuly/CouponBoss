@@ -7,8 +7,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.coupon.core.beans.LocalDateAdapter;
 
 @Entity
+@XmlRootElement
 @Table(name = "income")
 public class Income implements Serializable {
 	
@@ -16,12 +22,12 @@ public class Income implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	private long id;
-	private String name;
-	private LocalDate date;
+	@XmlElement private long id;
+	@XmlElement private String name;
+	@XmlJavaTypeAdapter(LocalDateAdapter.class) private LocalDate date;
 	@Enumerated
-	private IncomeType description;
-	private double amount;
+	@XmlElement private IncomeType description;
+	@XmlElement private double amount;
 	
 	public Income(){}
 	
@@ -118,7 +124,7 @@ public class Income implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Income [id=" + id + ", name=" + name + ", date=" + date + ", description=" + description + ", amount="
+		return "Income [id=" + id + ", name=" + name + ", date=" + date + ", description=" + description.getDescription() + ", amount="
 				+ amount + "]";
 	}
 }
