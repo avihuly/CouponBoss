@@ -17,6 +17,7 @@ xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.co
       <param-name>jersey.config.server.provider.packages</param-name>
       	<param-value>
       		com.coupon.web.services;
+      		com.coupon.jee.services;
       	</param-value>
     </init-param>
     <init-param>

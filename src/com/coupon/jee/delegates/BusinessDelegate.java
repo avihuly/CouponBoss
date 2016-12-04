@@ -19,7 +19,6 @@ public class BusinessDelegate {
 	@EJB(name = "IncomeServiceEJB")
 	private IncomeService iencomeService;
 
-	// @Resource(mappedName = "java:jboss/exported/jms/RemoteConnectionFactory")
 	@Resource(name = "RemoteConnectionFactory")
 	private ConnectionFactory connectionFactory;
 	@Resource(mappedName = "java:/jms/queue/couponIncomeQueue")
