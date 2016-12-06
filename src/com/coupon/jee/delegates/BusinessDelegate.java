@@ -3,26 +3,22 @@ package com.coupon.jee.delegates;
 import java.util.Collection;
 
 import javax.annotation.Resource;
-import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.JMSProducer;
 import javax.jms.Queue;
-
 import com.coupon.jee.entities.Income;
-import com.coupon.jee.services.IncomeService;
 
 public class BusinessDelegate {
 
 	private static BusinessDelegate inctance;
 
-	@EJB(name = "IncomeServiceEJB")
-	private IncomeService iencomeService;
-
 	@Resource(name = "RemoteConnectionFactory")
 	private ConnectionFactory connectionFactory;
 	@Resource(mappedName = "java:/jms/queue/couponIncomeQueue")
 	private Queue couponIncomeQueue;
+	
 	private JMSContext jmsContext;
 	private JMSProducer jmsProducer;
 
