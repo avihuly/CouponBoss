@@ -2,6 +2,8 @@ package com.coupon.web.services;
 
 import java.time.LocalDate;
 
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -44,7 +46,14 @@ public class CustomerServlet {
 				purchasedCoupon.getPrice()
 				);
 		// Sending Income to be asynchronously stored in the DB by the 
-		BusinessDelegate.getInctance().storeIncome(income);
+		BusinessDelegate db;
+		try {
+			db = BusinessDelegate.getInctance();
+			db.storeIncome(income);
+		} catch (NamingException | JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// return purchased coupon
 		return purchasedCoupon;
 	}

@@ -8,7 +8,6 @@ import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.coupon.jee.entities.Income;
@@ -29,28 +28,13 @@ public class IncomeServiceBean implements IncomeService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void storeIncome(Income income) {
-		System.out.println("**************************");
-		System.out.println("B4 income");
-		System.out.println(income);
+		entityManager.getTransaction().begin();
 		entityManager.persist(income);
-		System.out.println(income);
-		System.out.println("after income");
-		System.out.println("**************************");
+		entityManager.getTransaction().commit();
 	}
-
-	@Path("/allIncome")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Income[] viewAll(){
-		String query = "SELECT i FROM Income i";
-		Collection<Income> allIncome =  entityManager.createQuery(query, Income.class).getResultList();
-		for (Income income : allIncome){
-			System.out.println(income);
-		}
-		return allIncome.toArray(new Income[]{});
-	}
-	
 	
 	// ----------------------------------------------------------------------------
+	
 	@Override
 	public Collection<Income> viewAllIncome() {
 		String query = "SELECT i FROM income i";
