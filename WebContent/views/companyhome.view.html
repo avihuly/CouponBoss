@@ -21,6 +21,13 @@
 					<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
 					New coupon
 				</button>
+				<button class="btn btn-primary list-group-item form-control"
+						ng-model="sideBarRadioClickModel"
+						uib-btn-radio="'views/payments.view.html'"
+						ng-click="getPayments()">
+					<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+					Payments
+				</button>
 			</div>
 		</div>
 

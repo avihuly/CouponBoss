@@ -1,8 +1,8 @@
 angular.module("Coupon")
     .controller("companyController", function
         ($scope, $http, $rootScope, couponUtil,
-         loginProxy, companyCouponProxy, couponFactory,
-         couponTypesFactory, couponFilterFactory) {
+         loginProxy, companyCouponProxy, incomeProxy,
+         couponFactory, couponTypesFactory, couponFilterFactory) {
 
         // Coupons model array
         $scope.coupons = [];
@@ -18,6 +18,8 @@ angular.module("Coupon")
         $scope.couponFilter = couponFilterFactory();
         // List of coupon types
         $scope.types = couponTypesFactory;
+        // Incomes array
+        $scope.incomes = [];
 
         // Clear Search Text
         $scope.ClearSearchText = function () {
@@ -228,4 +230,18 @@ angular.module("Coupon")
                 errorCb(error);
             };
         };
+
+        /////////////////
+        //New Payments //
+        /////////////////
+        $scope.getPayments = function () {
+            incomeProxy.getConpanyPanyments()
+                .then(
+                    function successCallback(response) {
+                        $scope.incomes = response.data;
+                    },
+                    function errorCallback(response) {
+                        couponUtil.handleBadResponse('ERROR:', response);
+                    });
+        }
     });

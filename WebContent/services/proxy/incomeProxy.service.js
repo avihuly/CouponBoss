@@ -1,7 +1,7 @@
 angular.module("Coupon")
     .service('incomeProxy', function ($http) {
         var adminBaseUrl = "coupon/admin";
-        var CompanyBaseUrl = "coupon/admin";
+        var CompanyBaseUrl = "coupon/company";
 
         // can be called only from a COMPANY account
         this.getConpanyPanyments = function () {
