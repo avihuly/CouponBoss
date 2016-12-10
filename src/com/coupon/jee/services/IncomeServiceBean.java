@@ -1,6 +1,7 @@
 package com.coupon.jee.services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 import com.coupon.jee.entities.Income;
+import com.coupon.jee.entities.IncomeType;
 
 @Path("/income")
 @Stateless(name = "IncomeServiceEJB")
@@ -20,7 +22,7 @@ public class IncomeServiceBean implements IncomeService {
 	
 	// Constructor
 	public IncomeServiceBean() {
-		entityManager = Persistence.createEntityManagerFactory("couponSystem").createEntityManager();	
+		entityManager = Persistence.createEntityManagerFactory("couponSystem").createEntityManager();
 	}
 	
 	@Override
@@ -34,22 +36,49 @@ public class IncomeServiceBean implements IncomeService {
 	}
 	
 	// ----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
+	
+	@Path("/getIncome")
+	@POST
+	@Consumes(MediaType.TEXT_PLAIN)
+	public void getallIncome(long customerId){
+		String query = "SELECT i FROM Income i WHERE i.accountId =" + customerId
+				+ " AND i.description ='" + IncomeType.CUSTOMER_PURCHASE.toString() +"'";
+		List<Income> incomeList = entityManager.createQuery(query, Income.class).getResultList();
+		System.out.println("-----------------------------------------");
+		System.out.println("-----------------------------------------");
+		System.out.println("-----------------------------------------");
+		for (Income income:incomeList) {
+			System.out.println(income);
+		}
+		System.out.println("-----------------------------------------");
+		System.out.println("-----------------------------------------");
+		System.out.println("-----------------------------------------");
+	}
+	// ----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
 	
 	@Override
 	public Collection<Income> viewAllIncome() {
-		String query = "SELECT i FROM income i";
+		String query = "SELECT i FROM Income i";
 		return entityManager.createQuery(query, Income.class).getResultList();
 	}
 
 	@Override
 	public Collection<Income> ViewIncomeByCustomer(long customerId) {
-		String query = "SELECT i FROM income i WHERE  i.id =" + customerId;
+		String query = "SELECT i FROM Income i WHERE i.accountId =" + customerId
+				+ " AND i.description ='" + IncomeType.CUSTOMER_PURCHASE.toString() +"'";
 		return entityManager.createQuery(query, Income.class).getResultList();
 	}
 
 	@Override
 	public Collection<Income> ViewIncomeByCompany(long companyId) {
-		String query = "SELECT i FROM income i WHERE  i.id =" + companyId;
+		String query = "SELECT i FROM Income i WHERE i.accountId =" + companyId
+				+ " AND i.description !='" + IncomeType.CUSTOMER_PURCHASE.toString() +"'";
 		return entityManager.createQuery(query, Income.class).getResultList();
 	}
 }

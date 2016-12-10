@@ -22,15 +22,15 @@ public class BusinessDelegateMockup implements BusinessDelegat {
 
 		for (int i = 0; i < 5; i++) 
 			incomeCollection.add(
-					new Income("Custimer " + i,LocalDate.now(),IncomeType.CUSTOMER_PURCHASE,59.99));
+					new Income(i+10000,"Custimer " + i,LocalDate.now(),IncomeType.CUSTOMER_PURCHASE,59.99));
 		
 		for (int i = 0; i < 5; i++) 
 			incomeCollection.add(
-					new Income("Company " + i,LocalDate.now(),IncomeType.COMAPNY_UPDATE_COUPON,10));
+					new Income(i+10000,"Company " + i,LocalDate.now(),IncomeType.COMAPNY_UPDATE_COUPON,10));
 		
 		for (int i = 0; i < 5; i++) 
 			incomeCollection.add(
-					new Income("Company " + i,LocalDate.now(),IncomeType.COMPANY_NEW_COUPON,100));
+					new Income(i+10000,"Company " + i,LocalDate.now(),IncomeType.COMPANY_NEW_COUPON,100));
 		
 		return incomeCollection;
 	}
@@ -41,7 +41,7 @@ public class BusinessDelegateMockup implements BusinessDelegat {
 
 		for (int i = 0; i < 5; i++) 
 			incomeCollection.add(
-					new Income("Custimer " +  customerId,LocalDate.now(),IncomeType.CUSTOMER_PURCHASE,59.99));
+					new Income(i+10000,"Custimer " +  customerId,LocalDate.now(),IncomeType.CUSTOMER_PURCHASE,59.99));
 		
 		return incomeCollection;
 	}
@@ -52,11 +52,11 @@ public class BusinessDelegateMockup implements BusinessDelegat {
 
 		for (int i = 0; i < 5; i++) 
 			incomeCollection.add(
-					new Income("Company " +  companyId,LocalDate.now(),IncomeType.COMPANY_NEW_COUPON,100));
+					new Income(i+10000,"Company " +  companyId,LocalDate.now(),IncomeType.COMPANY_NEW_COUPON,100));
 		
 		for (int i = 0; i < 5; i++) 
 			incomeCollection.add(
-					new Income("Company " +  companyId,LocalDate.now(),IncomeType.COMAPNY_UPDATE_COUPON,10));
+					new Income(i+10000,"Company " +  companyId,LocalDate.now(),IncomeType.COMAPNY_UPDATE_COUPON,10));
 		
 		return incomeCollection;
 	}

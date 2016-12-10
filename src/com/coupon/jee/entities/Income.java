@@ -25,6 +25,7 @@ public class Income implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@XmlElement private long id;
+	@XmlElement private long accountId;
 	@XmlElement private String name;
 	@XmlJavaTypeAdapter(LocalDateAdapter.class) private LocalDate date;
 	@Enumerated(EnumType.STRING)
@@ -33,15 +34,17 @@ public class Income implements Serializable {
 	
 	public Income(){}
 	
-	public Income(long id, String name, LocalDate date, IncomeType description, double amount) {
+	public Income(long id,long accountId, String name, LocalDate date, IncomeType description, double amount) {
 		this.id = id;
+		this.accountId = accountId;
 		this.name = name;
 		this.date = date;
 		this.description = description;
 		this.amount = amount;
 	}
 	
-	public Income(String name, LocalDate date, IncomeType description, double amount) {
+	public Income(long accountId, String name, LocalDate date, IncomeType description, double amount) {
+		this.accountId = accountId;
 		this.name = name;
 		this.date = date;
 		this.description = description;

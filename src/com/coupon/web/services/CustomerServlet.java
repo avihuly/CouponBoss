@@ -39,6 +39,7 @@ public class CustomerServlet {
 		Coupon purchasedCoupon = custFacade.purchaseCoupon(id);
 		// creating Income object to store 
 		Income income = new Income(
+				custFacade.getCustomer().getId(),
 				custFacade.getCustomer().getCustName(),
 				LocalDate.now(),
 				IncomeType.CUSTOMER_PURCHASE,

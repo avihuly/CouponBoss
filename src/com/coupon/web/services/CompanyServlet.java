@@ -39,6 +39,7 @@ public class CompanyServlet {
 		compFacade.createCoupon(coupon);
 		// creating Income object to store 
 		Income income = new Income(
+				compFacade.getCompany().getId(),
 				compFacade.getCompany().getCompName(),
 				LocalDate.now(),
 				IncomeType.COMPANY_NEW_COUPON,
@@ -77,6 +78,7 @@ public class CompanyServlet {
 		compFacade.updateCoupon(coupon);
 		// creating Income object to store 
 		Income income = new Income(
+				compFacade.getCompany().getId(),
 				compFacade.getCompany().getCompName(),
 				LocalDate.now(),
 				IncomeType.COMAPNY_UPDATE_COUPON,
