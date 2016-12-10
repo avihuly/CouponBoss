@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+    <!--Filter By customer/company id-->
+        <div class="input-group">
+            <span class="input-group-addon" id="date-addon"> Filter by ID: </span>
+            <span class="input-group-addon">
+                <input type="radio"
+                       ng-model="incomeFilter.clientRadio"
+                       aria-label="Radio button for following text input"
+                       name="startEndRadio" value="Customer" /> Customer
+                <input type="radio"
+                       ng-model="incomeFilter.clientRadio"
+                       aria-label="Radio button for following text input"
+                       name="startEndRadio" value="Company" /> Company
+			</span>
+            <input type="number"
+                   ng-model="incomeFilter.id"
+                   placeholder="id"
+                   class="form-control"
+                   aria-describedby="date-addon" />
+            <span class="input-group-btn">
+				<button class="btn btn-secondary"
+                        type="button"
+                        ng-click="getIncomeByID(incomeFilter.id)"> Go!
+				</button>
+			</span>
+    </div>
+    </div>
+    <div class="row">
+<div style="text-align: left">
+    <h2>Incomes</h2>
+    <p>{{incomeFilter.message}}</p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Account</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="income in incomes | filter:searchText">
+            <td>{{income.date}}</td>
+            <td>{{income.name}}</td>
+            <td>{{income.description}}</td>
+            <td>{{income.amount}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>

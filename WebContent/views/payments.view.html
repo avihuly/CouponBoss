@@ -11,11 +11,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="income in incomes">
+        <tr ng-repeat="income in incomes | filter:searchText">
             <td>{{income.date}}</td>
             <td>{{income.description}}</td>
             <td>{{income.amount}}</td>
-            <td>{{}}</td>
         </tr>
         </tbody>
     </table>

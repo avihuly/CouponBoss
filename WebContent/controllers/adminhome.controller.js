@@ -1,13 +1,15 @@
 angular.module("Coupon")
     .controller("adminhomeController", function
         ($scope, $http, $rootScope, $location, $document,
-         couponUtil, loginProxy, companyProxy, customerProxy,
-         companyFactory, customerFactory) {
+         couponUtil, loginProxy, incomeProxy, companyProxy,
+         customerProxy, companyFactory, customerFactory) {
 
         // Companies model array
         $scope.companies = [];
         // customer model array
         $scope.customers = [];
+        // Incomes model array
+        $scope.incomes = [];
         // coupon image size
         $scope.couponPicSize = {width: "200px", height: "75px"};
         // Search text
@@ -16,6 +18,13 @@ angular.module("Coupon")
         $scope.clientType = $rootScope.clientType;
         // sidebar navigation click model
         $scope.sideBarRadioClickModel = "views/adminCompany.view.html";
+        // income Filter model
+        $scope.incomeFilter = {
+            clientRadio:'Customer',
+            id: null,
+            message:'All payments from customer and companies'
+        };
+
 
         // Clear Search Text
         $scope.ClearSearchText = function () {
@@ -203,4 +212,46 @@ angular.module("Coupon")
             // new customer object pushed to local model
             $scope.customers.push(customerFactory());
         };
+
+        ////////////
+        // INCOME //
+        ////////////
+        $scope.getAllIncome = function () {
+            incomeProxy.getAllIncome()
+                .then(
+                    function successCallback(response) {
+                        $scope.incomes = response.data;
+                        $scope.incomeFilter.message = 'All payments from customer and companies';
+                    },
+                    function errorCallback(response) {
+                        couponUtil.handleBadResponse('ERROR:', response);
+                    });
+        }
+
+
+        $scope.getIncomeByID = function (id) {
+           if (id != null) {
+               if ($scope.incomeFilter.clientRadio == 'Customer') {
+                   incomeProxy.getIncomeByCustomer(id)
+                       .then(
+                           function successCallback(response) {
+                               $scope.incomes = response.data;
+                               $scope.incomeFilter.message = 'payments from customer id: ' + id;
+                           },
+                           function errorCallback(response) {
+                               couponUtil.handleBadResponse('ERROR:', response);
+                           });
+               } else if ($scope.incomeFilter.clientRadio == 'Company') {
+                   incomeProxy.getIncomeByCompany(id)
+                       .then(
+                           function successCallback(response) {
+                               $scope.incomes = response.data;
+                               $scope.incomeFilter.message = 'payments from company id: ' + id;
+                           },
+                           function errorCallback(response) {
+                               couponUtil.handleBadResponse('ERROR:', response);
+                           });
+               }
+           }
+        }
     });

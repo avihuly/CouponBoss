@@ -18,7 +18,7 @@ angular.module("Coupon")
         $scope.couponFilter = couponFilterFactory();
         // List of coupon types
         $scope.types = couponTypesFactory;
-        // Incomes array
+        // Incomes model array
         $scope.incomes = [];
 
         // Clear Search Text
@@ -231,9 +231,9 @@ angular.module("Coupon")
             };
         };
 
-        /////////////////
-        //New Payments //
-        /////////////////
+        //////////////
+        // Payments //
+        //////////////
         $scope.getPayments = function () {
             incomeProxy.getConpanyPanyments()
                 .then(

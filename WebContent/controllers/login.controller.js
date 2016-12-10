@@ -4,7 +4,7 @@
 angular.module("Coupon")
     .controller("loginController", function ($scope, $rootScope, $http, $location, loginProxy, couponUtil) {
         // default values for login page
-        $scope.clientType = "Company";
+        $scope.clientType = "Admin";
         $scope.name = '0';
         $scope.password = '0';
         // login status message show (for wrong user name or password)
