@@ -2,8 +2,7 @@ package com.coupon.web.services;
 
 import java.time.LocalDate;
 
-import javax.jms.JMSException;
-import javax.naming.NamingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -16,7 +15,8 @@ import javax.ws.rs.core.MediaType;
 import com.coupon.core.beans.Coupon;
 import com.coupon.core.constants.CouponType;
 import com.coupon.core.facade.CustomerFacade;
-import com.coupon.jee.delegates.BusinessDelegate;
+import com.coupon.jee.delegates.BusinessDelegat;
+import com.coupon.jee.delegates.BusinessDelegateMockup;
 import com.coupon.jee.entities.Income;
 import com.coupon.jee.entities.IncomeType;
 
@@ -24,9 +24,8 @@ import com.coupon.jee.entities.IncomeType;
 public class CustomerServlet {
 
 	private static final String Facade_Attr = "FACADE";
-	
-	@Context 
-	private HttpServletRequest request;
+	private final BusinessDelegat businessDelegat =  new BusinessDelegateMockup(); 
+	@Context private HttpServletRequest request;
 	
 	// purchaseCoupon(long id)
 	@POST
@@ -43,17 +42,9 @@ public class CustomerServlet {
 				custFacade.getCustomer().getCustName(),
 				LocalDate.now(),
 				IncomeType.CUSTOMER_PURCHASE,
-				purchasedCoupon.getPrice()
-				);
+				purchasedCoupon.getPrice());
 		// Sending Income to be asynchronously stored in the DB by the 
-		BusinessDelegate db;
-		try {
-			db = BusinessDelegate.getInctance();
-			db.storeIncome(income);
-		} catch (NamingException | JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		businessDelegat.storeIncome(income);
 		// return purchased coupon
 		return purchasedCoupon;
 	}

@@ -1,26 +1,24 @@
 package com.coupon.web.services;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import com.coupon.core.beans.Company;
-import com.coupon.core.beans.Coupon;
-import com.coupon.core.beans.Customer;
+import com.coupon.core.beans.*;
 import com.coupon.core.exception.CouponSystemException;
 import com.coupon.core.facade.AdminFacade;
 import com.coupon.core.system.CouponSystem;
+import com.coupon.jee.delegates.BusinessDelegat;
+import com.coupon.jee.delegates.BusinessDelegateMockup;
+import com.coupon.jee.entities.Income;
 
 @Path("/admin")
 public class AdminServlet {
 	
 	private static final String Facade_Attr = "FACADE";
-
+	private final BusinessDelegat businessDelegat = new BusinessDelegateMockup();
 	@Context private HttpServletRequest request;
 		
 	//////////////////// *************** /////////////////
@@ -181,5 +179,62 @@ public class AdminServlet {
 		@Produces(MediaType.APPLICATION_JSON)
 		public Coupon[] getCustomerCoupons(long id) throws CouponSystemException { // Implement in ADMIN FACADE and deal with Exception													
 			return CouponSystem.getInstance().getCustomerDBDAO().getCoupons(id).toArray(new Coupon[] {});
-	}
+		}
+		
+		//////////////////// *************** /////////////////
+		//////////////////// INCOME METHODS /////////////////
+		//////////////////// *************** /////////////////
+		
+		// All income
+		@GET
+		@Path("/getAllIncome")
+		@Produces(MediaType.APPLICATION_JSON)
+		public Income[] getAllIncome() {
+			// getting the adminFacade saved in the session
+			AdminFacade adminFacade = (AdminFacade) request.getSession().getAttribute(Facade_Attr);
+			// Checking for null session (not lodged in user)
+			if (adminFacade != null) {
+				// All company payment(Income) Collection from business Delegate
+				Collection<Income> incomeCollection = businessDelegat.viewAllIncome();
+				// return incomeCollection as array for jersey to handle 
+				return incomeCollection.toArray(new Income[]{});	
+			}
+			return null;
+		}
+		
+		// Company income
+		@POST
+		@Path("/getIncomeByCompany")
+		@Consumes(MediaType.TEXT_PLAIN)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Income[] getIncomeByCompany(long id) {
+			// getting the adminFacade saved in the session
+			AdminFacade adminFacade = (AdminFacade) request.getSession().getAttribute(Facade_Attr);
+			// Checking for null session (not lodged in user)
+			if (adminFacade != null) {
+				// All company payment(Income) Collection from business Delegate
+				Collection<Income> incomeCollection = businessDelegat.ViewIncomeByCompany(id);
+				// return incomeCollection as array for jersey to handle 
+				return incomeCollection.toArray(new Income[]{});	
+			}
+			return null;
+		}
+		
+		// Company income
+		@POST
+		@Path("/getIncomeByCustomer")
+		@Consumes(MediaType.TEXT_PLAIN)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Income[] getIncomeByCustomer(long id) {
+			// getting the adminFacade saved in the session
+			AdminFacade adminFacade = (AdminFacade) request.getSession().getAttribute(Facade_Attr);
+			// Checking for null session (not lodged in user)
+			if (adminFacade != null) {
+				// All company payment(Income) Collection from business Delegate
+				Collection<Income> incomeCollection = businessDelegat.ViewIncomeByCustomer(id);
+				// return incomeCollection as array for jersey to handle 
+				return incomeCollection.toArray(new Income[]{});	
+			}
+			return null;
+		}		
 }

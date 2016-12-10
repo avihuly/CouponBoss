@@ -282,7 +282,12 @@ public class CompanyFacade {
 					+ "getCouponsByEndDate() Error: " + e.getMessage(), e);
 		}
 	}
-
+	
+	//Get company
+	public Company getCompany() {
+		return company;
+	}
+	
 	// toString
 	@Override
 	public String toString() {

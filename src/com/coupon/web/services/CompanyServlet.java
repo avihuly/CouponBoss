@@ -15,12 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import com.coupon.core.beans.Coupon;
 import com.coupon.core.constants.CouponType;
 import com.coupon.core.facade.CompanyFacade;
-
+import com.coupon.jee.delegates.BusinessDelegat;
+import com.coupon.jee.delegates.BusinessDelegateMockup;
+import com.coupon.jee.entities.Income;
+import com.coupon.jee.entities.IncomeType;
 
 @Path("/company")
 public class CompanyServlet {
 	
 	private static final String Facade_Attr = "FACADE";
+	private final BusinessDelegat businessDelegat = new BusinessDelegateMockup(); 
 	@Context private HttpServletRequest request;
 		
 	//createCoupon
@@ -33,6 +37,14 @@ public class CompanyServlet {
 		CompanyFacade compFacade = (CompanyFacade) request.getSession().getAttribute(Facade_Attr);
 		//the createCoupon function
 		compFacade.createCoupon(coupon);
+		// creating Income object to store 
+		Income income = new Income(
+				compFacade.getCompany().getCompName(),
+				LocalDate.now(),
+				IncomeType.COMPANY_NEW_COUPON,
+				100);
+		// Sending Income to be asynchronously stored in the DB by the 
+		businessDelegat.storeIncome(income);
 		// return coupon with updated id from DB
 		return coupon;
 	}
@@ -63,6 +75,14 @@ public class CompanyServlet {
 		CompanyFacade compFacade = (CompanyFacade) request.getSession().getAttribute(Facade_Attr);		
 		//the updateCoupon function
 		compFacade.updateCoupon(coupon);
+		// creating Income object to store 
+		Income income = new Income(
+				compFacade.getCompany().getCompName(),
+				LocalDate.now(),
+				IncomeType.COMAPNY_UPDATE_COUPON,
+				10);
+		// Sending Income to be asynchronously stored in the DB by the 
+		businessDelegat.storeIncome(income);
 		// return updated coupon
 		return compFacade.getCoupon(coupon.getId());
 	}
@@ -141,5 +161,20 @@ public class CompanyServlet {
 		LocalDate endLocalDate = LocalDate.parse(endDate);
 		//the getCouponByStartDate function
 		return compFacade.getCouponByEndDate(endLocalDate).toArray(new Coupon[]{});
+	}
+	
+	// Get company payments (all Income created by this company)
+	@GET
+	@Path("/getPayments")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Income[] getPayments() {
+		//getting the companyFacade saved in the session
+		CompanyFacade compFacade = (CompanyFacade) request.getSession().getAttribute(Facade_Attr);
+		// Company id from session 
+		long companyId = compFacade.getCompany().getId();
+		// All company payment(Income) Collection from business Delegate
+		Collection<Income> incomeCollection = businessDelegat.ViewIncomeByCompany(companyId); 
+		// return incomeCollection as array for jersey to handle 
+		return incomeCollection.toArray(new Income[]{});
 	}
 }

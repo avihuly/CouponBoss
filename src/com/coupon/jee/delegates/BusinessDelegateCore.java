@@ -6,11 +6,11 @@ import javax.jms.*;
 import javax.naming.*;
 import java.util.Properties;
 
-public class BusinessDelegate {
-	private static BusinessDelegate inctance;
+public class BusinessDelegateCore implements BusinessDelegat {
+	private static BusinessDelegateCore inctance;
 	
 	private final static String QUEUE_NAME = "java:/jms/queue/couponIncomeQueue";
-	private final static String QUEUE_CON_FACTORY_NAME = "RemoteConnectionFactory";
+	private final static String QUEUE_CON_FACTORY_NAME = "jms/RemoteConnectionFactory";
 	private Context context = null;
 	private QueueConnectionFactory queueConnectionFactory = null;
 	private QueueConnection queueConnection = null;
@@ -19,7 +19,7 @@ public class BusinessDelegate {
 	private MessageProducer producer = null;
 
 	// Constructor
-	private BusinessDelegate() throws NamingException, JMSException {
+	private BusinessDelegateCore() throws NamingException, JMSException {
 		// get the initial context
 		context = getInitialContext();
 		// lookup the queue object
@@ -36,9 +36,9 @@ public class BusinessDelegate {
 	}
 
 	// Singleton factory
-	public static BusinessDelegate getInctance() throws NamingException, JMSException {
+	public static BusinessDelegateCore getInctance() throws NamingException, JMSException {
 		if (inctance == null) {
-				return new BusinessDelegate();
+				return new BusinessDelegateCore();
 		}
 		return inctance;
 	}
