@@ -10,7 +10,11 @@ public class BusinessDelegateCore implements BusinessDelegat {
 	private static BusinessDelegateCore inctance;
 	
 	private final static String QUEUE_NAME = "java:/jms/queue/couponIncomeQueue";
-	private final static String QUEUE_CON_FACTORY_NAME = "jms/RemoteConnectionFactory";
+	private final static String QUEUE_CON_FACTORY_NAME = "java:/jms/RemoteConnectionFactory";
+	private final static String JMS_USERNAME="jmsuser";     
+	private final static String JMS_PASSWORD="jmsuser@123"; 
+	
+	
 	private Context context = null;
 	private QueueConnectionFactory queueConnectionFactory = null;
 	private QueueConnection queueConnection = null;
@@ -22,16 +26,22 @@ public class BusinessDelegateCore implements BusinessDelegat {
 	private BusinessDelegateCore() throws NamingException, JMSException {
 		// get the initial context
 		context = getInitialContext();
+		
 		// lookup the queue object
 		queue = (Queue) context.lookup(QUEUE_NAME);
+		
 		// lookup the queue connection factory
 		queueConnectionFactory = (QueueConnectionFactory) context.lookup(QUEUE_CON_FACTORY_NAME);
+		
 		// create a queue session		
-		queueConnection = queueConnectionFactory.createQueueConnection();
+		queueConnection = queueConnectionFactory.createQueueConnection(JMS_USERNAME, JMS_PASSWORD);
+		
 		// create a queue session
 		queueSession = queueConnection.createQueueSession(true, QueueSession.AUTO_ACKNOWLEDGE);
+		
 		// create a queue sender
 		producer = queueSession.createProducer(queue);
+		
 		context.close();
 	}
 
@@ -86,9 +96,11 @@ public class BusinessDelegateCore implements BusinessDelegat {
 	// 
 	public InitialContext getInitialContext() {
 		Properties env = new Properties();
-		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
-		// env.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+		// env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
+		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
 		env.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
+		env.put(Context.SECURITY_PRINCIPAL, JMS_USERNAME);
+		env.put(Context.SECURITY_CREDENTIALS, JMS_PASSWORD);
 		try {
 			return new InitialContext(env);
 		} catch (NamingException e) {
