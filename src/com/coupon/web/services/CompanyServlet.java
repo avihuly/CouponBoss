@@ -16,7 +16,7 @@ import com.coupon.core.beans.Coupon;
 import com.coupon.core.constants.CouponType;
 import com.coupon.core.facade.CompanyFacade;
 import com.coupon.jee.delegates.BusinessDelegat;
-import com.coupon.jee.delegates.BusinessDelegateMockup;
+import com.coupon.jee.delegates.BusinessDelegateCore;
 import com.coupon.jee.entities.Income;
 import com.coupon.jee.entities.IncomeType;
 
@@ -24,7 +24,8 @@ import com.coupon.jee.entities.IncomeType;
 public class CompanyServlet {
 	
 	private static final String Facade_Attr = "FACADE";
-	private final BusinessDelegat businessDelegat = new BusinessDelegateMockup(); 
+	private final BusinessDelegat businessDelegat =  new BusinessDelegateCore(); 
+	
 	@Context private HttpServletRequest request;
 		
 	//createCoupon

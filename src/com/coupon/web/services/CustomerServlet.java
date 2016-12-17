@@ -2,8 +2,6 @@ package com.coupon.web.services;
 
 import java.time.LocalDate;
 
-import javax.jms.JMSException;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -18,7 +16,6 @@ import com.coupon.core.constants.CouponType;
 import com.coupon.core.facade.CustomerFacade;
 import com.coupon.jee.delegates.BusinessDelegat;
 import com.coupon.jee.delegates.BusinessDelegateCore;
-import com.coupon.jee.delegates.BusinessDelegateMockup;
 import com.coupon.jee.entities.Income;
 import com.coupon.jee.entities.IncomeType;
 
@@ -26,7 +23,8 @@ import com.coupon.jee.entities.IncomeType;
 public class CustomerServlet {
 
 	private static final String Facade_Attr = "FACADE";
-	private final BusinessDelegat businessDelegat =  new BusinessDelegateMockup(); 
+	private final BusinessDelegat businessDelegat =  new BusinessDelegateCore(); 
+	
 	@Context private HttpServletRequest request;
 	
 	// purchaseCoupon(long id)
@@ -47,12 +45,7 @@ public class CustomerServlet {
 				IncomeType.CUSTOMER_PURCHASE,
 				purchasedCoupon.getPrice());
 		// Sending Income to be asynchronously stored in the DB by the 
-		// businessDelegat.storeIncome(income);
-		try {
-			BusinessDelegateCore.getInctance().storeIncome(income);
-		} catch (NamingException | JMSException e) {
-			e.printStackTrace();
-		}
+		businessDelegat.storeIncome(income);
 		// return purchased coupon
 		return purchasedCoupon;
 	}
